@@ -4,18 +4,19 @@ import org.scalatra._
 import scalate.ScalateSupport
 import twitter4j.{Twitter, TwitterException, Status}
 import com.gastove.the_range.models._
+import com.gastove.the_range.config._
 import collection.JavaConversions._
 
 class RangeServlet extends TheRangeStack {
-  val thing = System.getenv("TWITTER_ACCESS_TOKEN")
-  val message = "wut" + thing
+
   get("/") {
-    <html>
-      <body>
-        <h1>Hello, world!</h1>
-        {println(message)}
-      </body>
-    </html>
+    contentType = "text/html"
+    val avatarURL = "http://www.gravatar.com/avatar/" + 
+      Md5.hash("gastove@gmail.com") +
+      "?size=160"
+
+    jade("/home", "layout" -> "/WEB-INF/layouts/_calavera.jade", "avatarURL" -> avatarURL)
+
   }
   
   get("/twistory") {

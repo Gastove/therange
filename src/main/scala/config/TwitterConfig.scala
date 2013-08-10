@@ -12,7 +12,6 @@ object TwitterConfig {
       .setOAuthConsumerSecret(System.getenv("TWITTER_CONSUMER_SECRET"))
       .setOAuthAccessToken(System.getenv("TWITTER_ACCESS_TOKEN"))
       .setOAuthAccessTokenSecret(System.getenv("TWITTER_ACCESS_SECRET"))
-    cbuild
   }
 
 }
