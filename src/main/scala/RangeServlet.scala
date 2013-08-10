@@ -20,7 +20,7 @@ class RangeServlet extends TheRangeStack {
   
   get("/twistory") {
     val tweetList = TweetSet.getHomeTimelineList
-    val printable = tweetList.map{ status => status.getUser.getName + ":" + status.getText }.toList
+    val printable = tweetList.map{ status => status.getUser.getName + ":" + status.getText + "\n" }.toList
     <html>
       <body>
       {printable}
