@@ -9,7 +9,7 @@ object TheRangeBuild extends Build {
   val Organization = "com.gastove"
   val Name = "The Range"
   val Version = "0.1.0-SNAPSHOT"
-  val ScalaVersion = "2.10.2"
+  val ScalaVersion = "2.10.0"
   val ScalatraVersion = "2.2.1"
 
   lazy val project = Project (

@@ -13,20 +13,28 @@ class RangeServlet extends TheRangeStack {
 
   get("/") {
     contentType = "text/html"
-    val avatarURL = "http://www.gravatar.com/avatar/" + 
+    val avatarURL = "http://www.gravatar.com/avatar/" +
       Md5.hash("gastove@gmail.com") +
       "?size=160"
 
     jade("/home", "layout" -> calaveraPath, "avatarURL" -> avatarURL)
 
   }
-  
+
   get("/themakingof") {
     contentType = "text/html"
-    val avatarURL = "http://www.gravatar.com/avatar/" + 
+    val avatarURL = "http://www.gravatar.com/avatar/" +
       Md5.hash("gastove@gmail.com") +
       "?size=160"
     jade("/makingOf", "layout" -> calaveraPath, "avatarURL" -> avatarURL)
+  }
+
+  get("/about") {
+    contentType = "text/html"
+    val avatarURL = "http://www.gravatar.com/avatar/" +
+      Md5.hash("gastove@gmail.com") +
+      "?size=160"
+    jade("/about", "layout" -> calaveraPath, "avatarURL" -> avatarURL)
   }
 
   get("/twistory") {
