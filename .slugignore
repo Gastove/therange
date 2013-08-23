@@ -1,2 +1,7 @@
 src/test/*
-/.ivy2
+
+# Lets try this...
+.ivy2/
+cache/
+.sbt_home/
+.sbt_home/.ivy2/
