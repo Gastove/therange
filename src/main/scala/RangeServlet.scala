@@ -9,35 +9,19 @@ import collection.JavaConversions._
 
 class RangeServlet extends TheRangeStack {
 
-  val calaveraPath = "/WEB-INF/layouts/_calavera.jade"
-  val avatarURL = "http://www.gravatar.com/avatar/" +
-    Md5.hash("gastove@gmail.com") +
-    "?size=160"
+  //val calaveraPath = "/WEB-INF/layouts/_calavera.jade"
 
   before() {
     contentType = "text/html"
   }
 
   get("/*") {
-    jade("/home", "layout" -> calaveraPath, "avatarURL" -> avatarURL)
+    jade("/home", "avatarURL" -> Gravatar.url)
 
   }
 
   get("/themakingof/?") {
-    jade("/makingOf", "layout" -> calaveraPath, "avatarURL" -> avatarURL)
-  }
-
-  get("/about/?") {
-    jade("/about", "layout" -> calaveraPath, "avatarURL" -> avatarURL)
-  }
-
-  get("/about/:subsection") {
-    val incoming = params.getOrElse("subsection", redirect("/about"))
-    val section: String = incoming match{
-      case incoming:String if (incoming != "") => incoming
-      case _ => "/about"
-    }
-    jade(section, "layout" -> calaveraPath, "avatarURL" -> avatarURL)
+    jade("/makingOf", "avatarURL" -> Gravatar.url)
   }
 
   get("/twistory") {
