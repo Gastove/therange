@@ -1,3 +1,0 @@
-[submodule "buildpack"]
-	path = buildpack
-	url = git@github.com:Gastove/heroku-buildpack-scala
