@@ -13,7 +13,7 @@ class RangeServlet extends TheRangeStack {
     contentType = "text/html"
   }
 
-  get("/*") {
+  get("/") {
     jade("/home", "avatarURL" -> Gravatar.url)
 
   }
