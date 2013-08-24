@@ -9,8 +9,6 @@ import collection.JavaConversions._
 
 class RangeServlet extends TheRangeStack {
 
-  //val calaveraPath = "/WEB-INF/layouts/_calavera.jade"
-
   before() {
     contentType = "text/html"
   }
