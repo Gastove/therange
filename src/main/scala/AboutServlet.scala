@@ -10,7 +10,7 @@ class AboutServlet extends TheRangeStack {
     contentType = "text/html"
   }
 
-  get("/?") {
+  get("/") {
     jade("/about", "avatarURL" -> Gravatar.url)
   }
 
