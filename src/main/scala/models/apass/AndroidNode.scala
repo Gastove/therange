@@ -31,20 +31,24 @@ abstract class AndroidNode(val id: Int) {
     }
   }
 
+  def allBut(x: Int): List[Int] =
+    (1 to 9).toList.filter(y => y != x)
+
   // Find this node's neighbors.
   def neighbors(): List[Int] = {
     this.alignment match {
-      case "center" => 1 to 9 toList
-      case "horizontal" => List(id - 1, id + 1)
-      case "vertical" => List(id -3, id + 3)
-      case "ul" => List(id + 3, id + 1)
-      case "ur" => List(id + 3, id - 1)
-      case "ll" => List(id - 3, id + 1)
-      case "lr" => List(id - 3, id - 1)
+      case "center" => allBut(5)
+      case "horizontal-top" => allBut(8)
+      case "horizontal-bottom" => allBut(2)
+      case "vertical-left" => allBut(6)
+      case "vertical-bottom" => allBut(4)
+      case "upper-left" => List(5, id + 3, id + 1)
+      case "upper-right" => List(5, id + 3, id - 1)
+      case "lower-left" => List(5, id - 3, id + 1)
+      case "lower-right" => List(5, id - 3, id - 1)
       case _ => List(0) //Error case, hopefully.
     }
   }
-
 }
 
 case class CenterNode(override val id: Int) extends AndroidNode(id) {
@@ -57,8 +61,10 @@ case class EdgeNode(override val id: Int) extends AndroidNode(id) {
 
   def position(): String =  {
     this.id match {
-      case 2 | 8 => "horizontal"
-      case 4 | 6 => "vertical"
+      case 2 => "horizontal-top"
+      case 8 => "horizontal-bottom"
+      case 4 => "vertical-left"
+      case 6 => "vertical-right"
     }
   }
 
