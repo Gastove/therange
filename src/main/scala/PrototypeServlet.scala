@@ -35,8 +35,21 @@ class PrototypeServlet extends TheRangeStack {
   }
 
   get("/gen-passes/?") {
+    def findPathForSet(availableNodes: List[AndroidNode]): List[List[Any]] = {
+      availableNodes.map{ node =>
+        val reachableByThisNode = availableNodes.filter(
+          reachableNode => node.reachable(reachableNode)
+        )
+        if (reachableByThisNode.length > 1)
+          List(node.id) ++ findPathForSet(reachableByThisNode)
+        else
+          List(node.id, reachableByThisNode(0).id)
+      }.toList
+    }
+
     val generator = NodeFactory.genNode _
     val nodes = (1 to 9).toList.map(generator(_)).toList
+    findPathForSet(nodes)
   }
 
   get("/problem-space") {
