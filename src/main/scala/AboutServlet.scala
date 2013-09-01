@@ -14,4 +14,8 @@ class AboutServlet extends TheRangeStack {
     jade("/about", "avatarURL" -> Gravatar.url)
   }
 
+  get("/bio/?") {}
+
+  get() {}
+
 }
