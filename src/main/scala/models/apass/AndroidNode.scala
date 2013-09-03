@@ -1,10 +1,20 @@
 package com.gastove.the_range.models.apass
 
+import scala.math.abs
+
 case class AndroidNode(x: Int, y: Int) {
 
   lazy val neighbors = getAdjacentNodes
 
   override def toString(): String = "<" + this.x + "," + this.y + ">"
+
+  def - (other: AndroidNode): AndroidNode = {
+    new AndroidNode(diff(this.x, other.x), diff(this.y, other.y))
+  }
+
+  def diff(a: Int, b: Int): Int = {
+    if (a == b) a else abs(a - b)
+  }
 
   def getAdjacentNodes(): List[AndroidNode]= {
 
