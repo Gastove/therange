@@ -9,11 +9,6 @@ import collection.JavaConversions._
 
 class RangeServlet extends TheRangeStack {
 
-  foo() {
-    bar(
-)
-  }
-
   before() {
     contentType = "text/html"
   }

@@ -35,21 +35,29 @@ class PrototypeServlet extends TheRangeStack {
   }
 
   get("/gen-passes/?") {
-    def findPathForSet(availableNodes: List[AndroidNode]): List[List[Any]] = {
-      availableNodes.map{ node =>
-        val reachableByThisNode = availableNodes.filter(
-          reachableNode => node.reachable(reachableNode)
-        )
-        if (reachableByThisNode.length > 1)
-          List(node.id) ++ findPathForSet(reachableByThisNode)
-        else
-          List(node.id, reachableByThisNode(0).id)
-      }.toList
+    contentType = "text/html"
+
+    def findPath(nodes: List[AndroidNode], path: AndroidPath): List[AndroidPath] = {
+      nodes.flatMap{ node =>
+        if (path.length >= 3) List(path)
+        else {
+          val remainingNeighbors = node.neighbors.filter{
+            neighbor => !path.path.contains(neighbor)
+          }
+          findPath(remainingNeighbors, path.addToPath(node))
+        }
+      }
     }
 
-    val generator = NodeFactory.genNode _
-    val nodes = (1 to 9).toList.map(generator(_)).toList
-    findPathForSet(nodes)
+    val grid = NodeGrid.generateGrid
+    val paths = findPath(grid, new EmptyPath)
+    //val paths = findPath(List(AndroidNode(1, 1)), new EmptyPath)
+    <html>
+    <body>
+      Result: {paths.length} paths!
+      {paths}
+    </body>
+    </html>
   }
 
   get("/problem-space") {
@@ -78,3 +86,21 @@ class PrototypeServlet extends TheRangeStack {
   }
 
 }
+
+
+
+// def findPathForSet(availableNodes: List[AndroidNode]): List[List[Any]] = {
+//   availableNodes.map{ node =>
+//     val reachableByThisNode = availableNodes.filter(
+//       reachableNode => node.reachable(reachableNode)
+//     )
+//     if (reachableByThisNode.length > 1)
+//       List(node.id) ++ findPathForSet(reachableByThisNode)
+//     else
+//       List(node.id, reachableByThisNode(0).id)
+//   }.toList
+// }
+
+// val generator = NodeFactory.genNode _
+// val nodes = (1 to 9).toList.map(generator(_)).toList
+// findPathForSet(nodes)
