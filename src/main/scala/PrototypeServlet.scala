@@ -3,6 +3,7 @@ package com.gastove.the_range
 import org.scalatra._
 import scalate.ScalateSupport
 import com.gastove.the_range.models.apass._
+import com.gastove.the_range.models._
 import com.gastove.the_range.config._
 
 // Problem statement:
@@ -35,29 +36,30 @@ class PrototypeServlet extends TheRangeStack {
   }
 
   get("/gen-passes/?") {
-    contentType = "text/html"
 
     def findPath(nodes: List[AndroidNode], path: AndroidPath): List[AndroidPath] = {
       nodes.flatMap{ node =>
-        if (path.length >= 3) List(path)
-        else {
-          val remainingNeighbors = node.neighbors.filter{
-            neighbor => !path.path.contains(neighbor)
-          }
-          findPath(remainingNeighbors, path.addToPath(node))
+
+        val remainingNeighbors = node.neighbors.filter{
+          neighbor => !path.path.contains(neighbor)
         }
+
+        val newPath = path.addToPath(node)
+        if (newPath.length >= 9) List(newPath)
+        else if (newPath.length >= 4) findPath(remainingNeighbors, newPath) ++ List(newPath)
+        else findPath(remainingNeighbors, newPath)
       }
     }
 
     val grid = NodeGrid.generateGrid
     val paths = findPath(grid, new EmptyPath)
-    //val paths = findPath(List(AndroidNode(1, 1)), new EmptyPath)
-    <html>
-    <body>
-      Result: {paths.length} paths!
-      {paths}
-    </body>
-    </html>
+
+    jade(
+      "/androidPasswords",
+      "tableHeaders" -> List("Passwords"),
+      "tableData" -> paths,
+      "avatarURL" -> Gravatar.url
+    )
   }
 
   get("/problem-space") {

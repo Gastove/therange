@@ -77,7 +77,7 @@ class Path(val path: List[AndroidNode]) extends AndroidPath {
   }
 
   override def toString(): String = {
-    this.path.mkString("->")
+    this.path.reverse.mkString("->")
   }
 
 }
