@@ -7,5 +7,6 @@ class ScalatraBootstrap extends LifeCycle {
     context.mount(new RangeServlet, "/*")
     context.mount(new AboutServlet, "/about/*")
     context.mount(new PrototypeServlet, "/prototype/*")
+    context.mount(new TwistoryServlet, "/twistory/*")
   }
 }
