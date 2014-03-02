@@ -1,5 +1,6 @@
 import cgi, json
 
+form = cgi.FieldStorage()
 payload = form['payload'].value
 myjson = json.loads(payload)
 
